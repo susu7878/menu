@@ -1,0 +1,239 @@
+@font-face {
+  font-family: "speciman";
+  src: url(./assets/fonts/RedHatText-Italic-VariableFont_wght.ttf);
+  font-style: italic;
+}
+@font-face {
+  font-family: "speciman";
+  src: url(./assets/fonts/RedHatText-VariableFont_wght.ttf);
+  font-style: normal;
+}
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+:root {
+  --color-red: hsl(14, 86%, 42%);
+  --color-green: hsl(159, 69%, 38%);
+
+  /* Rose palette */
+  --color-rose-50: hsl(20, 50%, 98%);
+  --color-rose-100: hsl(13, 31%, 94%);
+  --color-rose-300: hsl(14, 25%, 72%);
+  --color-rose-400: hsl(7, 20%, 60%);
+  --color-rose-500: hsl(12, 20%, 44%);
+  --color-rose-900: hsl(14, 65%, 9%);
+}
+body {
+  background-color: var(--color-rose-50);
+  display: flex;
+  justify-content: center;
+  /* padding: 5rem; */
+}
+
+h1 {
+  font-family: "speciman";
+}
+.light-pink {
+  color: var(--color-rose-300);
+}
+.dark-color {
+  color: hsl(12, 20%, 44%);
+}
+.red-color {
+  color: var(--color-red);
+}
+.font-bold {
+  font-weight: bold;
+}
+.carbon-neutral {
+  display: flex;
+  background-color: var(--color-rose-100);
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 15px;
+  color: black;
+  border-radius: 5px;
+}
+.carbon-neutral span {
+  font-weight: bold;
+}
+.section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  width: 90%;
+  margin: 100px 0%;
+  gap: 20px;
+}
+.confirm-btn {
+  background-color: var(--color-red);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+}
+.list-of-food {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 40px;
+}
+.orders {
+  font-family: "speciman";
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.orders h5 {
+  color: black;
+}
+.food-info {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.button img {
+  width: 30%;
+  display: flex;
+  justify-self: end;
+  padding: 5px;
+  border-radius: 50%;
+  border: 2px solid var(--color-rose-300);
+}
+.announce {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--color-rose-100);
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  font-family: "speciman";
+  padding: 10px 0;
+}
+.amount-of-order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-red);
+  color: white;
+  width: 70%;
+  padding: 10px 15px;
+  border-radius: 40px;
+  margin: 0 auto;
+}
+
+.card {
+  font-family: "speciman";
+  height: auto;
+  gap: 5px;
+  position: relative;
+  top: -10%;
+}
+
+.amount-of-order img {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid var(--color-rose-100);
+  padding: 3px;
+}
+.add,
+.amount-of-order {
+  position: relative;
+  top: -7%;
+}
+.add-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #8d6b63;
+  width: 70%;
+  border-radius: 40px;
+  padding: 10px;
+  gap: 3px;
+  font-family: "speciman";
+  margin: 0 auto;
+  background-color: white;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.add-button img {
+  width: 10%;
+  height: 10%;
+}
+img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.calc-menu-section1,
+.calc-menu-section2 {
+  background-color: white;
+  border-radius: 5px;
+  width: 90%;
+  color: var(--color-red);
+  font-family: "speciman";
+  padding: 30px;
+}
+
+.calc-menu-section1 img {
+  width: 30%;
+}
+.carbon-neutral img {
+  width: 10%;
+  color: black;
+}
+.side-bar {
+  position: sticky;
+  top: 15px;
+  align-self: start;
+}
+
+.imgs-border {
+  border: solid 2px hsl(14, 86%, 42%);
+}
+.center {
+  text-align: center;
+  margin-top: 20px;
+}
+.amount-of-order,
+.add-button {
+  display: flex;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media screen and (max-width: 500px) {
+  .section,
+  .list-of-food {
+    grid-template-columns: 1fr;
+    margin: 40px 0;
+  }
+  .add-button > p {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 900px) {
+  .list-of-food {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .add-button {
+    top: -5%;
+  }
+  .section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
