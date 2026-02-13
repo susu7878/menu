@@ -11,9 +11,9 @@
     <div class="section">
       <div class="food-collection">
         <h1>Dessert</h1>
-        <!-- card 1 -->
         <div class="list-of-food">
-          <div class="card">
+          <!-- card 1 -->
+          <div class="card" data-price="6.50" data-name="Waffle with Berries">
             <img
               src="./assets/images/image-waffle-desktop.jpg"
               alt=""
@@ -34,8 +34,12 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Waffle</p>
@@ -43,7 +47,11 @@
             <p style="font-weight: bold; color: var(--color-red)">$6.50</p>
           </div>
           <!-- cart 2 -->
-          <div class="card">
+          <div
+            class="card"
+            data-price="$7.00"
+            data-name="Vanilla Bean Crème Brûlée"
+          >
             <img
               src="./assets/images/image-creme-brulee-desktop.jpg"
               class="img"
@@ -64,8 +72,12 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Crème Brûlée</p>
@@ -73,7 +85,7 @@
             <p style="font-weight: bold; color: var(--color-red)">$7.00</p>
           </div>
           <!-- cart 3 -->
-          <div class="card">
+          <div class="card" data-price="$8.00" data-name="Macaron Mix of Five">
             <img
               src="./assets/images/image-macaron-desktop.jpg"
               class="img"
@@ -94,8 +106,12 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Macaron</p>
@@ -104,7 +120,7 @@
           </div>
           <!-- card 4 -->
 
-          <div class="card">
+          <div class="card" data-price="$5.50" data-name="Classic Tiramisu">
             <img
               src="./assets/images/image-tiramisu-desktop.jpg"
               class="img"
@@ -125,8 +141,12 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Tiramisu</p>
@@ -134,7 +154,7 @@
             <p style="font-weight: bold; color: var(--color-red)">$5.50</p>
           </div>
           <!-- cart 6-->
-          <div class="card">
+          <div class="card" data-price="$4.00" data-name="Pistachio Baklava">
             <img
               src="./assets/images/image-baklava-desktop.jpg"
               class="img"
@@ -155,16 +175,20 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Baklava</p>
             <p class="font-bold">Pistachio Baklava</p>
             <p style="font-weight: bold; color: var(--color-red)">$4.00</p>
           </div>
-
-          <div class="card">
+          <!--cart 7  -->
+          <div class="card" data-price="$5.00" data-name="Lemon Meringue Pie">
             <img
               src="./assets/images/image-meringue-desktop.jpg"
               class="img"
@@ -185,16 +209,20 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Pie</p>
             <p class="font-bold">Lemon Meringue Pie</p>
             <p style="font-weight: bold; color: var(--color-red)">$5.00</p>
           </div>
-          <!-- 7 -->
-          <div class="card">
+          <!-- cart 8 -->
+          <div class="card" data-price="$4.50" data-name="Red Velvet Cake">
             <img
               src="./assets/images/image-cake-desktop.jpg"
               class="img"
@@ -215,16 +243,24 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Cake</p>
             <p class="font-bold">Red Velvet Cake</p>
             <p style="font-weight: bold; color: var(--color-red)">$4.50</p>
           </div>
-          <!-- 8 -->
-          <div class="card">
+          <!-- cart 9 -->
+          <div
+            class="card"
+            data-price="$4.50"
+            data-name="Salted Caramel Brownie"
+          >
             <img
               src="./assets/images/image-brownie-desktop.jpg"
               class="img"
@@ -245,16 +281,20 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
             <p class="light-pink">Brownie</p>
             <p class="font-bold">Salted Caramel Brownie</p>
             <p style="font-weight: bold; color: var(--color-red)">$4.50</p>
           </div>
-          <!-- 9 -->
-          <div class="card">
+          <!-- cart 10-->
+          <div class="card" data-price="$6.50" data-name="Vanilla Panna Cotta">
             <img
               src="./assets/images/image-panna-cotta-desktop.jpg"
               class="img"
@@ -275,8 +315,12 @@
                   class="decrement"
                   alt=""
                 />
-                <span>0</span>
-                <img src="./assets/images/icon-increment-quantity.svg" alt="" />
+                <span class="counter">0</span>
+                <img
+                  src="./assets/images/icon-increment-quantity.svg"
+                  class="increment"
+                  alt=""
+                />
               </div>
             </div>
 
@@ -304,7 +348,7 @@
               <div class="food-info">
                 <span class="amount red-color font-bold">1X</span>
                 <span class="light-pink">@ $6.50</span>
-                <span class="dark-color font-bold">$6.50</span>
+                <span class="dark-color font-bold food-cost">$6.50</span>
               </div>
               <div class="button">
                 <img src="./assets/images/icon-remove-item.svg" alt="" />
