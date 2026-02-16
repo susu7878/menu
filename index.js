@@ -1,207 +1,173 @@
+// ======================================================
+
+const fixedSidbar = document.querySelector(".side-bar");
+const sidebarTop = fixedSidbar.offsetTop;
 const addButtons = document.querySelectorAll(".add-button");
-const fixedSidebar = document.querySelector(".side-bar");
-
-const section1 = fixedSidebar.querySelector(".calc-menu-section1");
-const section2 = fixedSidebar.querySelector(".calc-menu-section2");
-
-const cartContainer = fixedSidebar.querySelector(".orders");
-const totalPriceElement = fixedSidebar.querySelector(".total-price");
-const cartCountElements = fixedSidebar.querySelectorAll(".cart-count");
-
-let cartTotal = 0;
+let cartCounter = document.querySelector(".cart-counter");
 let totalItems = 0;
+const ordersContainer = document.querySelector(".orders");
+
+// ======================================================
+//                sidebar section
+// ======================================================
+
+window.addEventListener("scroll", () => {
+  fixedSidbar.classList.toggle("fixed", window.scrollY >= sidebarTop);
+});
+
+// ======================================================
+//                 order section
+// ======================================================
 
 addButtons.forEach((button) => {
   const card = button.closest(".card");
-  const amountBox = card.querySelector(".amount-of-order");
+  const amount = card.querySelector(".amount-of-order");
   const img = card.querySelector(".img");
   const counter = card.querySelector(".counter");
   const decrement = card.querySelector(".decrement");
   const increment = card.querySelector(".increment");
 
-  const price = Number(card.dataset.price);
   const name = card.dataset.name;
+  const price = Number(card.dataset.price.replace("$", ""));
+
+  const calcMenuSection1 = fixedSidbar.querySelector(".calc-menu-section1");
+  const calcMenuSection2 = fixedSidbar.querySelector(".calc-menu-section2");
 
   let currentAmount = 0;
 
-  button.addEventListener("click", () => {
+  // ================== ADD BUTTON ==================
+  button.addEventListener("click", function () {
+    const existingItem = ordersContainer.querySelector(`[data-name="${name}"]`);
+
     button.classList.add("hidden");
-    amountBox.classList.remove("hidden");
+    amount.classList.remove("hidden");
     img.classList.add("imgs-border");
 
-    currentAmount++;
-    counter.textContent = currentAmount;
+    calcMenuSection1.classList.add("hidden");
+    calcMenuSection2.classList.remove("hidden");
 
-    addToCart(name, price);
-    updateCartItem(name, currentAmount, price);
+    currentAmount++;
+    totalItems++;
+
+    counter.textContent = currentAmount;
+    cartCounter.textContent = `(${totalItems})`;
+
+    if (!existingItem) {
+      ordersContainer.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="order-item" data-name="${name}">
+          <h5 class="food-name">${name}</h5>
+          <div class="announce">
+            <div class="food-info">
+              <span class="amount red-color font-bold">${currentAmount}X</span>
+              <span class="light-pink">@ $${price.toFixed(2)}</span>
+              <span class="dark-color font-bold item-total">$${(
+                price * currentAmount
+              ).toFixed(2)}</span>
+            </div>
+            <div class="remove-button">
+              <img src="./assets/images/icon-remove-item.svg" alt="" />
+            </div>
+          </div>
+        </div>`,
+      );
+    } else {
+      const amountSpan = existingItem.querySelector(".amount");
+      const totalSpan = existingItem.querySelector(".item-total");
+
+      amountSpan.textContent = `${currentAmount}X`;
+      totalSpan.textContent = `$${(price * currentAmount).toFixed(2)}`;
+    }
   });
 
-  increment.addEventListener("click", () => {
+  // ================== INCREMENT ==================
+  increment.addEventListener("click", function () {
+    const existingItem = ordersContainer.querySelector(`[data-name="${name}"]`);
+
     currentAmount++;
+    totalItems++;
+
     counter.textContent = currentAmount;
-    updateCartItem(name, currentAmount, price);
+    cartCounter.textContent = `(${totalItems})`;
+
+    if (existingItem) {
+      const amountSpan = existingItem.querySelector(".amount");
+      const totalSpan = existingItem.querySelector(".item-total");
+
+      amountSpan.textContent = `${currentAmount}X`;
+      totalSpan.textContent = `$${(price * currentAmount).toFixed(2)}`;
+    }
   });
 
-  decrement.addEventListener("click", () => {
-    if (currentAmount > 0) {
-      currentAmount--;
-      counter.textContent = currentAmount;
-      updateCartItem(name, currentAmount, price);
+  // ================== DECREMENT ==================
+  decrement.addEventListener("click", function () {
+    if (currentAmount === 0) return;
 
-      if (currentAmount === 0) {
-        button.classList.remove("hidden");
-        amountBox.classList.add("hidden");
-        img.classList.remove("imgs-border");
+    const existingItem = ordersContainer.querySelector(`[data-name="${name}"]`);
+
+    currentAmount--;
+    totalItems--;
+
+    counter.textContent = currentAmount;
+    cartCounter.textContent = `(${totalItems})`;
+
+    if (existingItem) {
+      const amountSpan = existingItem.querySelector(".amount");
+      const totalSpan = existingItem.querySelector(".item-total");
+
+      if (currentAmount > 0) {
+        amountSpan.textContent = `${currentAmount}X`;
+        totalSpan.textContent = `$${(price * currentAmount).toFixed(2)}`;
+      } else {
+        existingItem.remove();
+      }
+    }
+
+    if (currentAmount === 0) {
+      amount.classList.add("hidden");
+      button.classList.remove("hidden");
+      img.classList.remove("imgs-border");
+
+      // اگر کل سبد خالی شد
+      if (totalItems === 0) {
+        calcMenuSection2.classList.add("hidden");
+        calcMenuSection1.classList.remove("hidden");
       }
     }
   });
 });
 
-function addToCart(name, price) {
-  if (!cartContainer.querySelector(`[data-cart-name="${name}"]`)) {
-    cartContainer.insertAdjacentHTML(
-      "beforeend",
-      `
-      <div class="order-item" data-cart-name="${name}">
-        <h5>${name}</h5>
-        <div class="announce">
-          <span class="amount">1X</span>
-          <span class="light-pink">@ $${price.toFixed(2)}</span>
-          <span class="dark-color font-bold item-total">$${price.toFixed(2)}</span>
-        </div>
-      </div>
-      `,
-    );
-  }
+// ================== REMOVE FROM SIDEBAR ==================
 
-  section1.classList.add("hidden");
-  section2.classList.remove("hidden");
-}
+ordersContainer.addEventListener("click", function (e) {
+  if (!e.target.closest(".remove-button")) return;
 
-function updateCartItem(name, amount, price) {
-  const orderItem = cartContainer.querySelector(`[data-cart-name="${name}"]`);
+  const orderItem = e.target.closest(".order-item");
+  const itemName = orderItem.dataset.name;
 
-  if (!orderItem) return;
+  const card = document.querySelector(`[data-name="${itemName}"]`);
+  const counter = card.querySelector(".counter");
+  const amountBox = card.querySelector(".amount-of-order");
+  const button = card.querySelector(".add-button");
+  const img = card.querySelector(".img");
 
-  const amountSpan = orderItem.querySelector(".amount");
-  const itemTotal = orderItem.querySelector(".item-total");
+  const removedAmount = Number(counter.textContent);
 
-  amountSpan.textContent = `${amount}X`;
-  itemTotal.textContent = `$${(price * amount).toFixed(2)}`;
+  totalItems -= removedAmount;
+  cartCounter.textContent = `(${totalItems})`;
 
-  calculateTotal();
-}
+  counter.textContent = 0;
+  amountBox.classList.add("hidden");
+  button.classList.remove("hidden");
+  img.classList.remove("imgs-border");
 
-function calculateTotal() {
-  const allItems = cartContainer.querySelectorAll(".order-item");
+  orderItem.remove();
 
-  cartTotal = 0;
-  totalItems = 0;
-
-  allItems.forEach((item) => {
-    const amountText = item.querySelector(".amount").textContent;
-    const amount = Number(amountText.replace("X", ""));
-    const priceText = item.querySelector(".item-total").textContent;
-    const itemTotal = Number(priceText.replace("$", ""));
-
-    totalItems += amount;
-    cartTotal += itemTotal;
-
-    if (amount === 0) {
-      item.remove();
-    }
-  });
-
-  totalPriceElement.textContent = `$${cartTotal.toFixed(2)}`;
-
-  cartCountElements.forEach((el) => {
-    el.textContent = `(${totalItems})`;
-  });
+  const calcMenuSection1 = fixedSidbar.querySelector(".calc-menu-section1");
+  const calcMenuSection2 = fixedSidbar.querySelector(".calc-menu-section2");
 
   if (totalItems === 0) {
-    section1.classList.remove("hidden");
-    section2.classList.add("hidden");
+    calcMenuSection2.classList.add("hidden");
+    calcMenuSection1.classList.remove("hidden");
   }
-}
-
-// ======================================================
-
-// const fixedSidbar = document.querySelector(".side-bar");
-// const sidebarTop = fixedSidbar.offsetTop;
-// const addButtons = document.querySelectorAll(".add-button");
-
-// //=====================================================
-// //                sidebar section
-// // ====================================================
-// window.addEventListener("scroll", () => {
-//   fixedSidbar.classList.toggle("fixed", window.scrollY >= sidebarTop);
-// });
-// // ====================================================
-// //                 order section
-// // ===================================================
-// addButtons.forEach((button) => {
-//   const card = button.closest(".card");
-//   const amount = card.querySelector(".amount-of-order");
-//   const img = card.querySelector(".img");
-//   const counter = card.querySelector(".counter");
-//   const decrement = card.querySelector(".decrement");
-//   const increment = card.querySelector(".increment");
-//   const foodCost = card.querySelector(".food-cost");
-//   const calcMenuSection1 = fixedSidbar.querySelector(".calc-menu-section1");
-//   const calcMenuSection2 = fixedSidbar.querySelector(".calc-menu-section2");
-//   let currentAmount = 0;
-//   let currentcost = Number(foodCost.textContent);
-//   button.addEventListener("click", function () {
-//     button.classList.add("hidden");
-//     amount.classList.remove("hidden");
-//     img.classList.add("imgs-border");
-
-//     calcMenuSection1.classList.add("hidden");
-//     calcMenuSection2.classList.remove("hidden");
-
-//     currentAmount++;
-//     counter.textContent = currentAmount;
-//     button.insertAdjacentHTML(
-//       "afterend",
-//       `   <div class="calc-menu-section2 hidden">
-//           <h1>Your Cart <span>(${currentAmount})</span></h1>
-//           <div class="orders">
-//             <h5>Waffle with Berries</h5>
-//             <div class="announce">
-//               <div class="food-info">
-//                 <span class="amount red-color font-bold">1X</span>
-//                 <span class="light-pink">@ $6.50</span>
-//                 <span class="dark-color font-bold food-cost">$6.50</span>
-//               </div>
-//               <div class="button">
-//                 <img src="./assets/images/icon-remove-item.svg" alt="" />
-//               </div>
-//             </div>
-//             <div class="total">
-//               <p>Order Total</p>
-//               <p class="font-bold">$16.50</p>
-//             </div>
-//             <div class="carbon-neutral">
-//               <img src="./assets/images/icon-carbon-neutral.svg" alt="" />
-//               <p>This is a <span>carbon-neutral</span> delivery</p>
-//             </div>
-//             <button class="confirm-btn">Confirm Order</button>
-//           </div>
-//         </div>`,
-//     );
-//   });
-//   increment.addEventListener("click", function () {
-//     currentAmount++;
-//     currentcost + currentAmount;
-//     counter.textContent = currentAmount;
-//     foodCost.textContent = currentcost;
-//   });
-//   decrement.addEventListener("click", function () {
-//     if (currentAmount > 0) {
-//       currentAmount--;
-//       currentcost - currentAmount;
-//       counter.textContent = currentAmount;
-//       foodCost.textContent = currentcost;
-//     }
-//   });
-// });
+});
